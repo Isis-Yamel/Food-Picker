@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text } from 'react-native';
+import { Text, StyleSheet, ScrollView } from 'react-native';
 
 import SearchBar from '../components/SearchBar';
 import ResultList from '../components/ResultList';
@@ -10,8 +10,10 @@ const SearchScreen = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [data, dataError, getData] = useResults();
 
+  const filterByPrice = (price) => data.filter(result => result.price === price);
+
   return (
-    <View>
+    <>
       <SearchBar 
         term={searchTerm} 
         onChangeTerm={term => setSearchTerm(term)}
@@ -20,12 +22,16 @@ const SearchScreen = () => {
       {dataError 
         ? <Text> {dataError} </Text> 
         : null}
-      <Text> You get {data.length} results </Text>
-      <ResultList title={'Expensive'}/>
-      <ResultList title={'Normi'}/>
-      <ResultList title={'Cheap'}/>
-    </View>
+      <ScrollView>
+        <ResultList results={filterByPrice('$')} title={'Cost Effective'}/>
+        <ResultList results={filterByPrice('$$')} title={'Bit Pricier'}/>
+        <ResultList results={filterByPrice('$$$')} title={'Big Spender'}/>
+      </ScrollView>
+    </>
   );
 };
+
+const styles = StyleSheet.create({
+});
 
 export default SearchScreen;

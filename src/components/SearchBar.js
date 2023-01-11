@@ -35,7 +35,7 @@ const styles = StyleSheet.create({
     fontSize: 35,
     alignSelf: 'center',
     marginHorizontal: 15,
-  }
-})
+  },
+});
 
 export default SearchBar;
