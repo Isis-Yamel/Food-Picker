@@ -4,6 +4,11 @@ import { withNavigation } from 'react-navigation';
 import ResultCard from './ResultCard';
 
 const ResultList = ({title, results, navigation}) => {
+
+  if (!results.length) {
+    return null;
+  };
+
   return (
     <View style={styles.resultsWrapper}>
       <Text style={styles.resultTitle}> {title} </Text>
@@ -14,7 +19,8 @@ const ResultList = ({title, results, navigation}) => {
         keyExtractor={(result) => result.id}
         renderItem={({ item }) => {
           return (
-            <TouchableOpacity onPress={() => navigation.navigate('RestaurantDetail')}>
+            <TouchableOpacity 
+              onPress={() => navigation.navigate('RestaurantDetail', {id: item.id})}>
               <ResultCard result={item} />
             </TouchableOpacity>
           );

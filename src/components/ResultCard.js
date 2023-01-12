@@ -1,17 +1,23 @@
-import React from 'react';
+import React, { PureComponent } from 'react';
 import { View, Text, StyleSheet, Image } from 'react-native';
 
-const ResultCard = ({result}) => {
-  return (
-    <View style={styles.resultContainer}>
-      <Image 
-        style={styles.resultImage} 
-        source={{uri: result.image_url}}
-      />
-      <Text style={styles.resultName}> {result.name} </Text>
-      <Text> Rating: {result.rating} - Reviews: {result.review_count} </Text>
-    </View>
-  );
+const FALLBACK_IMAGE = 'https://media-cdn.tripadvisor.com/media/photo-s/17/75/3f/d1/restaurant-in-valkenswaard.jpg';
+
+class ResultCard extends PureComponent {
+  render() {
+    const {result} = this.props;
+
+    return (
+      <View style={styles.resultContainer}>
+        <Image 
+          style={styles.resultImage} 
+          source={{uri: result.image_url || FALLBACK_IMAGE}}
+        />
+        <Text style={styles.resultName}> {result.name} </Text>
+        <Text> Rating: {result.rating} - Reviews: {result.review_count} </Text>
+      </View>
+    );
+  };
 };
 
 const styles = StyleSheet.create({
